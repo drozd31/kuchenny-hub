@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kuchenny Hub</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<img src="images/wielkiszczur.png" id="big-rat" class="big-rat" alt="Wielki Szczur">
+
+<div class="header">
+    <h1>Kuchenny Hub</h1>
+    <img src="images/osmiornica.png" class="octopus-top" alt="Ośmiornica">
+</div>
+
+<div class="container">
+
+    <div class="category">
+        <h2>HOST/CZEKER</h2>
+        <a class="tile" href="https://outlook.office.com/mail/wroclaw.planowaniekuchni@ikea.com/inbox/id/AAQkAGYxYjVhZGVmLTdmMzMtNDJiZS1iZDY3LThjNWRiMDhhZGQ2ZgAQALpQ6zJL45ZFlBbDcqBAo9M%3D" target="_blank">MAIL PLANOWANIA</a>
+        <a class="tile" href="https://iweof.sharepoint.com/:x:/r/teams/o365g_kitchendesign294_retpl294/_layouts/15/Doc.aspx?sourcedoc=%7B6C1D2F4D-C1E1-4ECE-95E7-0328749F5FF7%7D&file=grafik%20delux%20lux.xlsx&fromShare=true&action=default&mobileredirect=true" target="_blank">GRAFIK CODZIENNY</a>
+        <a class="tile" href="https://boka.ingka.com/pl/pl/" target="_blank">BOKA</a>
+        <a class="tile" href="https://app.coworker.loyaltypoint.pl/Default" target="_blank">COWORKER</a>
+    </div>
+
+    <div class="category">
+        <h2>SPRZEDAŻ</h2>
+        <a class="tile" href="https://gpc3d.aidesign.ikea.com/login?back_url=https://gpc3d.aidesign.ikea.com/" target="_blank">GPC</a>
+        <a class="tile" href="https://kitchen.planner.ikea.com/pl/pl/" target="_blank">PLANNER</a>
+        <a class="tile" href="https://coworker.ingka.com/pl/pl/saleslead/" target="_blank">SALJA</a>
+        <a class="tile" href="https://iweof-my.sharepoint.com/:w:/r/personal/dominika_drozd_ingka_ikea_com/_layouts/15/doc2.aspx?sourcedoc=%7B6D35352B-58DB-4ACA-A3F2-64DBBCCCDB93%7D&file=Szablon%20opisu%20nowy%20standard.docx&action=default&mobileredirect=true&DefaultItemOpen=1" target="_blank">SZABLON OPISÓW</a>
+    </div>
+
+    <div class="category">
+        <h2>INNE</h2>
+        <a class="tile" href="https://planner.cloud.microsoft/webui/plan/iSPedca2rkabhugs1OW0RJYAAcN4/view/board?tid=720b637a-655a-40cf-816a-f22f40755c2c" target="_blank">ZAMÓWIENIA KOMUNIKACJA</a>
+        <a class="tile" href="https://mhs-294.ikea.com/" target="_blank">MHS</a>
+        <a class="tile" href="https://piafacts.ikea.net/select-locale?callbackUrl=%2Fsearch" target="_blank">PIA FACT</a>
+        <a class="tile" href="https://www.mmcrm.eu/ikea/index.php" target="_blank">MEBLOMONTAŻ</a>
+        <a class="tile" href="https://ikea.geotask.globema.pl/#/login" target="_blank">GEOTASK</a>
+    </div>
+
+    <div class="category">
+        <h2>TWÓJ HUB</h2>
+        <a class="tile" href="https://outlook.office.com/mail/inbox/id/AAQkADA3ZjEyZDlhLWI1MGMtNDA4Mi05M2QxLWE2ZGU0NDUxMzFhMQAQAGrN95YzlOdGg%2FHzp75NOqg%3D" target="_blank">TWÓJ MAIL</a>
+        <a class="tile" href="https://ikeaemea-sso.prd.mykronos.com/wfd/home" target="_blank">UKG</a>
+        <a class="tile" href="https://ikea.one2tribe.com/login" target="_blank">MUNSBIT</a>
+        <a class="tile" href="https://ikea.csod.com/LMS/catalog/Welcome.aspx?tab_page_id=-67&tab_id=-2" target="_blank">MYLEARNING</a>
+        <a class="tile" href="https://nowpandc.ingka.com/ingka_esc" target="_blank">NOW PC</a>
+    </div>
+
+    <div class="category">
+        <h2>SHAREPOINT</h2>
+        <a class="tile" href="https://iweof.sharepoint.com/_layouts/15/sharepoint.aspx" target="_blank">SHAREPOINT</a>
+        <a class="tile" href="https://iweof.sharepoint.com/teams/o365g_kitchendesign294_retpl294" target="_blank">KITCHEN DESIGN</a>
+        <a class="tile" href="https://iweof.sharepoint.com/teams/o365g_all_retpl294" target="_blank">EXCHANGE</a>
+        <a class="tile" href="https://iweof.sharepoint.com/teams/o365g_kitchenschoolpl_retplso" target="_blank">KITCHEN SCHOOL</a>
+    </div>
+
+</div>
+
+<img src="images/szczur.png" id="rat" class="rat" alt="Szczur">
+<img src="images/ser.png" id="cheese" class="cheese" alt="Ser">
+
+<canvas id="confetti-canvas"></canvas>
+
+<script>
+const rat = document.getElementById("rat");
+const cheese = document.getElementById("cheese");
+const bigRat = document.getElementById("big-rat");
+const canvas = document.getElementById("confetti-canvas");
+const ctx = canvas.getContext("2d");
+
+let clickCount = 0;
+let lastPosition = 0;
+let cheeseShown = false;
+const RAT_WIDTH = 200; // Rat width from CSS
+const maxPosition = document.documentElement.clientWidth - RAT_WIDTH; // Fixed width from CSS
+const CHEESE_WIDTH = 100; // Cheese width from CSS
+
+/* ---- SZCZUR BIEGA ---- */
+
+rat.addEventListener("click", () => {
+    clickCount++;
+
+    let newPosition;
+
+    do {
+        newPosition = Math.floor(Math.random() * maxPosition);
+        newPosition = Math.max(0, Math.min(newPosition, maxPosition));
+    } while (Math.abs(newPosition - lastPosition) < 100);
+
+    lastPosition = newPosition;
+    rat.style.left = newPosition + "px";
+
+    if (clickCount === 5 && !cheeseShown) {
+        cheese.style.display = "block";
+        if(newPosition + RAT_WIDTH > document.documentElement.clientWidth) {
+            cheese.style.left = (newPosition - RAT_WIDTH) + "px";
+        } else {
+            cheese.style.left = (newPosition + RAT_WIDTH) + "px";
+        }
+        cheeseShown = true;
+        createHearts(newPosition + RAT_WIDTH / 2, 0);
+    }
+    if (clickCount === 6 && cheeseShown) {
+        cheese.style.display = "none";
+        cheeseShown = false;
+    }
+    if (clickCount === 10) startConfetti();
+    if (clickCount ===15) {
+        window.scrollTo(0, 0);
+        bigRat.style.display = "block";
+        body.style.overflowY = "hidden";
+    }
+    if (clickCount === 16) {
+        bigRat.style.display = "none";
+        body.style.overflowY = "auto";
+    }
+});
+
+/* ---- BIG RAT CLICK ---- */
+
+bigRat.addEventListener("click", () => {
+    bigRat.style.display = "none";
+});
+
+/* ---- SER ---- */
+
+function showCheese() {
+    cheese.style.display = "block";
+}
+
+function createHearts(x, y) {
+    for (let i = 0; i < 5; i++) {
+        const heart = document.createElement("div");
+        heart.className = "heart";
+        heart.textContent = "❤️";
+        heart.style.left = (Math.random() * window.innerWidth) + "px";
+        heart.style.bottom = "20px";
+        document.body.appendChild(heart);
+        
+        setTimeout(() => {
+            heart.remove();
+        }, 2000);
+    }
+}
+
+/* ---- KONFETTI ---- */
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let confetti = [];
+let confettiActive = false;
+
+function startConfetti() {
+    confettiActive = true;
+    
+    // Set canvas to full screen size
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    
+    for (let i = 0; i < 150; i++) {
+        confetti.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            size: Math.random() * 6 + 4,
+            speed: Math.random() * 3 + 2,
+            color: `hsl(${Math.random() * 360}, 100%, 50%)`
+        });
+    }
+
+    animateConfetti();
+
+    setTimeout(() => {
+        confettiActive = false;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }, 10000);
+}
+
+function animateConfetti() {
+    if (!confettiActive) return;
+
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    confetti.forEach(p => {
+        ctx.fillStyle = p.color;
+        ctx.fillRect(p.x, p.y, p.size, p.size);
+        p.y += p.speed;
+
+        if (p.y > canvas.height) {
+            p.y = -10;
+        }
+    });
+
+    requestAnimationFrame(animateConfetti);
+}
+</script>
+
+</body>
+</html>

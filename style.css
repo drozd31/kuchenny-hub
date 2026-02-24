@@ -1,0 +1,154 @@
+body {
+    margin: 0;
+    font-family: "Segoe UI", Arial, sans-serif;
+    background: #ffffff;
+    width: 100vw;
+    padding: 0;
+    text-align: center;
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* TYTUŁ – idealnie w osi strony */
+h1 {
+    margin: 35px 0 40px;
+    font-weight: 300;
+    font-size: 30px;
+    text-align: center;
+}
+
+/* WRAPPER – wyśrodkowany matematycznie */
+.container {
+    width: 1100px;              /* kontrolowana szerokość */
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 120px;
+    position: relative;
+}
+
+/* KOLUMNY */
+.category {
+    width: 190px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+}
+
+/* SYMETRYCZNE LINIE */
+.category:not(:first-child)::before {
+    content: "";
+    position: absolute;
+    left: -27.5px;              /* połowa dystansu między kolumnami */
+    top: 0;
+    height: 100%;
+    width: 1px;
+    background: #e5e5e5;
+}
+
+/* NAGŁÓWKI */
+.category h2 {
+    font-size: 13px;
+    margin-bottom: 14px;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+/* KAFELKI – mniejsze odstępy */
+.tile {
+    width: 145px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+
+    background-color: #D6F1FF;
+    margin: 4px 0;              /* zmniejszone odstępy */
+    border-radius: 20px;
+    text-decoration: none;
+    color: #000;
+    font-weight: 600;
+    font-size: 11px;
+    padding: 0 6px;
+
+    transition: transform 0.15s ease;
+}
+
+.tile:hover {
+    transform: scale(1.05);
+}
+
+/* HEADER */
+.header {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.octopus-top {
+    width: 120px;
+    margin-left: 20px;
+}
+
+/* SZCZUR */
+.rat {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 200px;
+    cursor: pointer;
+    transition: left 0.4s ease;
+    z-index: 10;
+}
+
+/* SER */
+.cheese {
+    position: fixed;
+    bottom: 0;
+    width: 100px;
+    display: none;
+    z-index: 9;
+}
+
+/* KONFETTI */
+#confetti-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 100;
+}
+
+/* BIG RAT */
+.big-rat {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    display: none;
+    z-index: 9999;
+    cursor: pointer;
+}
+/* HEARTS */
+.heart {
+    position: fixed;
+    font-size: 30px;
+    pointer-events: none;
+    animation: float-up 2s ease-out forwards;
+    z-index: 11;
+}
+
+@keyframes float-up {
+    0% {
+        opacity: 1;
+        transform: translateY(0px) scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-100px) scale(0.5);
+    }
+}
