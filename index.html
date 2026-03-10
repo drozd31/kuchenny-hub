@@ -79,7 +79,7 @@
 const rat = document.getElementById("rat");
 const cheese = document.getElementById("cheese");
 const bigRat = document.getElementById("big-rat");
-const angryRat = document.getElementById("angry-rat");
+const angryrat = document.getElementById("angry-rat");
 const canvas = document.getElementById("confetti-canvas");
 const ctx = canvas.getContext("2d");
 
@@ -125,9 +125,9 @@ rat.addEventListener("click", () => {
         bigRat.style.display = "block";
         body.style.overflowY = "hidden";
     }
-    if (clickCount === 16) {
+    if (clickCount ===16) {
         window.scrollTo(0, 0);
-        angryRat.style.display = "block";
+        angryrat.style.display = "block";
         body.style.overflowY = "hidden";
     }
      if (clickCount === 17) {
@@ -141,6 +141,13 @@ rat.addEventListener("click", () => {
 bigRat.addEventListener("click", () => {
     bigRat.style.display = "none";
 });
+    
+/* ----ANGRY RAT CLICK ---- */
+
+angryrat.addEventListener("click", () => {
+    angryrat.style.display = "none";
+});
+    
 
 /* ---- SER ---- */
 
@@ -218,5 +225,6 @@ function animateConfetti() {
 </body>
 
 </html>
+
 
 
